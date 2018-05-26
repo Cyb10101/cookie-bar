@@ -14,7 +14,7 @@ Licence: Public Domain - Feel free to use it, but you can also improve this.
 * Add JavaScript call
 
 ```javascript
-$(function () {
+jQuery(function ($) {
     $.cookieBar();
 });
 ```
@@ -22,7 +22,7 @@ $(function () {
 ## Advanced configuration
 
 ```javascript
-$(function () {
+jQuery(function ($) {
     $.cookieBar({
         language: 'en', // Empty for auto detection [en,de]
         classText: '',
@@ -31,7 +31,7 @@ $(function () {
         showButtonDecline: true,
         animationSpeed: 400,
         cookieName: 'cookies',
-        cookieValue: 'allowed',
+        cookieValueAccept: 'allowed',
         cookiePath: '/',
         cookieSecure: false,
         cookieDomain: '', // example.org
@@ -51,7 +51,7 @@ $(function () {
 * JavaScript
 
 ```javascript
-$(function () {
+jQuery(function ($) {
     $('#cookie-bar-template').cookieBar({
         classText: 'text',
         classButtonAccept: 'button-accept',
@@ -73,8 +73,8 @@ $(function () {
 ## Add your own language or override existing
 
 ```javascript
-$(function () {
-    $.fn.cookieBar.languageText.en = {
+jQuery(function ($) {
+    Cyb.CookieBar.languageText.en = {
         accept: 'Okay, we could share...',
         decline: 'No, that\'s my cookies!',
         cookieText: 'Give cookie monster cookies!'
@@ -91,19 +91,18 @@ Add opt out button to reset cookie bar.
 * JavaScript
 
 ```javascript
-$(function () {
+jQuery(function ($) {
     // Without settings
     $('.cookie-bar-optout').cookieBarOptOut();
 
     // With settings
     $('.cookie-bar-optout').cookieBarOptOut({
         cookieName: 'cookies',
-        cookieValue: 'denied',
+        cookieValueDecline: 'denied',
         cookiePath: '/',
         cookieSecure: false,
         cookieDomain: '',
-        cookieExpires: 0, // Expire immediately
-        callAfterClicked: function () {
+        callAfterClickedOptOut: function () {
             console.log('Run method');
         }
     });
