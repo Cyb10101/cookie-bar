@@ -1,0 +1,48 @@
+.cookie-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 0 85px;
+    border-bottom: 1px solid #cccccc;
+    box-shadow: 0 0 3px #cccccc;
+    z-index: 99;
+
+    background-color: #cccccc;
+    color: #000000;
+    font-size: 13px;
+    font-weight: bold;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.cookie-bar p {
+    margin: 4px 5px;
+    padding: 0;
+}
+.cookie-bar a {
+    display: inline-block;
+    margin: 4px 5px;
+    padding: 5px 10px 0;
+    float: right;
+    top: 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
+    transition: background-color 400ms ease;
+}
+.cookie-bar a.cookiebar-accept {
+    border: 1px solid darkgreen;
+    background-color: green;
+}
+.cookie-bar a.cookiebar-decline {
+    border: 1px solid #de0000;
+    background-color: red;
+}
+.cookie-bar a.cookiebar-accept:hover {
+    background-color: darkgreen;
+}
+.cookie-bar a.cookiebar-decline:hover {
+    background-color: #de0000;
+}
