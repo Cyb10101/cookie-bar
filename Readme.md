@@ -4,14 +4,14 @@ Licence: Public Domain - Feel free to use it, but you can also improve this.
 
 ## Simplest configuration
 
-* Add JavaScript and CSS includes in HTML
+Include JavaScript after the jQuery library
 
 ```html
 <link rel="stylesheet" href="jquery.cookie-bar.css"/>
 <script src="jquery.cookie-bar.js" type="text/javascript"></script>
 ```
 
-* Add JavaScript call
+Add JavaScript call to run the cookie bar
 
 ```javascript
 jQuery(function ($) {
@@ -22,45 +22,41 @@ jQuery(function ($) {
 ## Advanced configuration
 
 ```javascript
-jQuery(function ($) {
-    $.cookieBar({
-        language: 'en', // Empty for auto detection [en,de]
-        classText: '',
-        classButtonAccept: '',
-        classButtonDecline: '',
-        showButtonDecline: true,
-        animationSpeed: 400,
-        cookieName: 'cookies',
-        cookieValueAccept: 'allowed',
-        cookiePath: '/',
-        cookieSecure: false,
-        cookieDomain: '', // example.org
-        cookieExpires: 365, // Date or days if it is a number
-        callAfterClickedAccept: function () {
-            console.log('Run method');
-        },
-        callAfterClickedDecline: function () {
-            console.log('Run method');
-        }
-    });
+$.cookieBar({
+    language: 'en', // Empty for auto detection [en,de]
+    classText: '',
+    classButtonAccept: '',
+    classButtonDecline: '',
+    showButtonDecline: true,
+    animationSpeed: 400,
+    cookieName: 'cookies',
+    cookieValueAccept: 'allowed',
+    cookiePath: '/',
+    cookieSecure: false,
+    cookieDomain: '', // example.org
+    cookieExpires: 365, // Date or days if it is a number
+    callAfterClickedAccept: function () {
+        console.log('Run method');
+    },
+    callAfterClickedDecline: function () {
+        console.log('Run method');
+    }
 });
 ```
 
 ## Run Cookiebar with own template
 
-* JavaScript
+JavaScript adaptations
 
 ```javascript
-jQuery(function ($) {
-    $('#cookie-bar-template').cookieBar({
-        classText: 'text',
-        classButtonAccept: 'button-accept',
-        classButtonDecline: 'button-decline',
-    });
+$('#cookie-bar-template').cookieBar({
+    classText: 'text',
+    classButtonAccept: 'button-accept',
+    classButtonDecline: 'button-decline',
 });
 ```
 
-* HTML template, you can add your own css for cookie-* classes
+HTML template. The cookiebar-* classes then only used for styling.  
 
 ```html
 <div id="cookie-bar-template" class="cookie-bar" style="display: none;">
@@ -73,15 +69,13 @@ jQuery(function ($) {
 ## Add your own language or override existing
 
 ```javascript
-jQuery(function ($) {
-    Cyb.CookieBar.languageText.en = {
-        accept: 'Okay, we could share...',
-        decline: 'No, that\'s my cookies!',
-        cookieText: 'Give cookie monster cookies!'
-    };
+Cyb.CookieBar.languageText.en = {
+    accept: 'Okay, we could share...',
+    decline: 'No, that\'s my cookies!',
+    cookieText: 'Give cookie monster cookies!'
+};
 
-    $.cookieBar();
-});
+$.cookieBar();
 ```
 
 ## Opt Out
@@ -91,21 +85,19 @@ Add opt out button to reset cookie bar.
 * JavaScript
 
 ```javascript
-jQuery(function ($) {
-    // Without settings
-    $('.cookie-bar-optout').cookieBarOptOut();
+// Without settings
+$('.cookie-bar-optout').cookieBarOptOut();
 
-    // With settings
-    $('.cookie-bar-optout').cookieBarOptOut({
-        cookieName: 'cookies',
-        cookieValueDecline: 'denied',
-        cookiePath: '/',
-        cookieSecure: false,
-        cookieDomain: '',
-        callAfterClickedOptOut: function () {
-            console.log('Run method');
-        }
-    });
+// With settings
+$('.cookie-bar-optout').cookieBarOptOut({
+    cookieName: 'cookies',
+    cookieValueDecline: 'denied',
+    cookiePath: '/',
+    cookieSecure: false,
+    cookieDomain: '',
+    callAfterClickedOptOut: function () {
+        console.log('Run method');
+    }
 });
 ```
 
