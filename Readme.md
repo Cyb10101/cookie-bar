@@ -19,10 +19,35 @@ jQuery(function ($) {
 });
 ```
 
-## Advanced configuration
+## Fixed navigation bar
+
+How to set for fixed top navigation
+
+* HTML
+
+```html
+<div class="fixed-top" style="position: fixed; top: 0; right: 0; left: 0;">
+    <nav class="navbar">
+        Content
+    </nav>
+</div>
+```
+
+* JavaScript
 
 ```javascript
 $.cookieBar({
+    attach: '.fixed-top',
+    fixed: false
+});
+```
+
+## Advanced/full configuration
+
+```javascript
+$.cookieBar({
+    attach: 'body',
+    fixed: true,
     language: 'en', // Empty for auto detection [en,de]
     classText: '',
     classButtonAccept: '',

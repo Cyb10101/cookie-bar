@@ -5,6 +5,8 @@ Cyb.CookieBar = {
      * @return {Object}
      */
     settings: {
+        attach: 'body',
+        fixed: true,
         language: '',
         classText: '',
         classButtonAccept: '',
@@ -140,6 +142,25 @@ Cyb.CookieBar = {
     },
 
     /**
+     *
+     * @param {jQuery} $instance
+     * @param {Object} settings
+     */
+    toggleFixed: function ($instance, settings) {
+        if (settings.fixed) {
+            $instance.css({
+                position: 'fixed',
+                top: 0, left: 0, right: 0
+            });
+        } else {
+            $instance.css({
+                position: 'unset',
+                top: 0, left: 0, right: 0
+            });
+        }
+    },
+
+    /**
      * Language texts
      *
      * @return {Object}
@@ -209,6 +230,9 @@ Cyb.CookieBar = {
         return this.each(function () {
             var $instance = $(this);
             $instance.hide();
+
+            $instance.prependTo(settings.attach);
+            Cyb.CookieBar.toggleFixed($instance, settings);
 
             if (Cyb.CookieBar.cookie(settings.cookieName) === settings.cookieValueDecline) {
                 Cyb.CookieBar.removeAllCookiesAndStorage();
@@ -301,8 +325,9 @@ Cyb.CookieBar = {
      * @return {void}
      */
     $.cookieBar = function (options = {}) {
+        var settings = $.extend(Cyb.CookieBar.settings, options);
         var id = 'cookie-bar-' + Cyb.CookieBar.generateRandomString();
-        $('body').prepend('<div id="' + id + '" class="cookie-bar" style="display: none;"></div>');
+        $(settings.attach).prepend('<div id="' + id + '" class="cookie-bar" style="display: none;"></div>');
         $('#' + id).cookieBar(options);
     };
 })(jQuery);
