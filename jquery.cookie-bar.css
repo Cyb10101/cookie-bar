@@ -8,7 +8,7 @@
     color: #000000;
     font-size: 13px;
     font-weight: bold;
-    text-transform: unset;
+    text-transform: none;
 
     -webkit-user-select: none;
     -moz-user-select: none;
