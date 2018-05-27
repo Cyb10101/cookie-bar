@@ -244,21 +244,24 @@ Cyb.CookieBar = {
                     settings.callAfterClickedAccept();
                 }
             });
-            $instance.find('.' + settings.classButtonDecline).click(function (event) {
-                event.preventDefault();
 
-                var confirm = window.confirm(languageText.declineConfirm);
-                if (confirm === true) {
-                    Cyb.CookieBar.removeAllCookiesAndStorage();
-                    Cyb.CookieBar.setCookieBySettings(settings, settings.cookieValueDecline);
+            if (settings.showButtonDecline) {
+                $instance.find('.' + settings.classButtonDecline).click(function (event) {
+                    event.preventDefault();
 
-                    $instance.slideUp(settings.animationSpeed);
+                    var confirm = window.confirm(languageText.declineConfirm);
+                    if (confirm === true) {
+                        Cyb.CookieBar.removeAllCookiesAndStorage();
+                        Cyb.CookieBar.setCookieBySettings(settings, settings.cookieValueDecline);
 
-                    if (settings.callAfterClickedDecline !== null && {}.toString.call(settings.callAfterClickedDecline) === '[object Function]') {
-                        settings.callAfterClickedDecline();
+                        $instance.slideUp(settings.animationSpeed);
+
+                        if (settings.callAfterClickedDecline !== null && {}.toString.call(settings.callAfterClickedDecline) === '[object Function]') {
+                            settings.callAfterClickedDecline();
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     };
 
