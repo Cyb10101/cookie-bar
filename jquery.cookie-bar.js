@@ -42,7 +42,6 @@ Cyb.CookieBar = {
      * @returns {*}
      */
     cookie: function (key, value = {}, options = {}) {
-        console.log('x', key, value, options);
         // Set cookie
         if (arguments.length > 1 && (!/Object/.test(Object.prototype.toString.call(value)) || value === null || value === undefined)) {
             if (value === null || value === undefined) {
@@ -78,6 +77,35 @@ Cyb.CookieBar = {
             }
         }
         return null;
+    },
+
+    /**
+     * Remove all the cookies and empty localStorage when user refuses cookies
+     *
+     * @return null
+     */
+    removeAllCookiesAndStorage: function () {
+        // Clear cookies
+        document.cookie.split(';').forEach(function(c) {
+            document.cookie = c.replace(/^\ +/, '').replace(/\=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
+        });
+
+        document.cookie.split(';').forEach(function(c) {document.cookie = c.replace(/^\ +/, '').replace(/\=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');});
+
+        // Clear localStorage
+        localStorage.clear();
+    },
+
+    /**
+     * @return null
+     */
+    setCookieBySettings: function (settings, value) {
+        Cyb.CookieBar.cookie(settings.cookieName, value, {
+            path: settings.cookiePath,
+            secure: settings.cookieSecure,
+            domain: settings.cookieDomain,
+            expires: settings.cookieExpires
+        });
     },
 
     /**
@@ -120,12 +148,14 @@ Cyb.CookieBar = {
         'en': {
             accept: 'Understood',
             decline: 'Decline',
-            cookieText: 'This website makes use of cookies to enhance browsing experience and provide additional functionality. None of this data can or will be used to identify or contact you.'
+            cookieText: 'This website makes use of cookies to enhance browsing experience and provide additional functionality. None of this data can or will be used to identify or contact you.',
+            declineConfirm: 'By clicking Disallow cookies, you deny your consent to store any cookies and localStorage data for this website, eventually deleting already stored cookies (some parts of the site may stop working properly).'
         },
         'de': {
             accept: 'Verstanden',
             decline: 'Ablehnen',
-            cookieText: 'Diese Internetseite verwendet Cookies, um die Nutzererfahrung zu verbessern und den Benutzern bestimmte Dienste und Funktionen bereitzustellen. Es werden keine der so gesammelten Daten genutzt, um Sie zu identifizieren oder zu kontaktieren.'
+            cookieText: 'Diese Internetseite verwendet Cookies, um die Nutzererfahrung zu verbessern und den Benutzern bestimmte Dienste und Funktionen bereitzustellen. Es werden keine der so gesammelten Daten genutzt, um Sie zu identifizieren oder zu kontaktieren.',
+            declineConfirm: 'Durch das Klicken von Cookies verbieten verweigern Sie Ihre Zustimmung, Cookies oder lokalen Speicher zu nutzen. Weiterhin werden alle Cookies und lokal gespeicherte Daten gelöscht und Teile der Internetseite könnten aufhören, ordnungsgemäß zu funktionieren.'
         }
     },
 
@@ -180,6 +210,12 @@ Cyb.CookieBar = {
             var $instance = $(this);
             $instance.hide();
 
+            if (Cyb.CookieBar.cookie(settings.cookieName) === settings.cookieValueDecline) {
+                Cyb.CookieBar.removeAllCookiesAndStorage();
+                Cyb.CookieBar.setCookieBySettings(settings, settings.cookieValueDecline);
+                return;
+            }
+
             if (settings.showButtonDecline && settings.classButtonDecline === '') {
                 settings.classButtonDecline = 'cookiebar-decline';
                 $instance.append('<a class="' + settings.classButtonDecline + '">' + languageText.decline + '</a>');
@@ -203,28 +239,25 @@ Cyb.CookieBar = {
                 event.preventDefault();
                 $instance.slideUp(settings.animationSpeed);
 
-                cookieBar.cookie(settings.cookieName, settings.cookieValueAccept, {
-                    path: settings.cookiePath,
-                    secure: settings.cookieSecure,
-                    domain: settings.cookieDomain,
-                    expires: settings.cookieExpires
-                });
-
+                Cyb.CookieBar.setCookieBySettings(settings, settings.cookieValueAccept);
                 if (settings.callAfterClickedAccept !== null && {}.toString.call(settings.callAfterClickedAccept) === '[object Function]') {
                     settings.callAfterClickedAccept();
                 }
-
-                return false;
             });
             $instance.find('.' + settings.classButtonDecline).click(function (event) {
                 event.preventDefault();
-                $instance.slideUp(settings.animationSpeed);
 
-                if (settings.callAfterClickedDecline !== null && {}.toString.call(settings.callAfterClickedDecline) === '[object Function]') {
-                    settings.callAfterClickedDecline();
+                var confirm = window.confirm(languageText.declineConfirm);
+                if (confirm === true) {
+                    Cyb.CookieBar.removeAllCookiesAndStorage();
+                    Cyb.CookieBar.setCookieBySettings(settings, settings.cookieValueDecline);
+
+                    $instance.slideUp(settings.animationSpeed);
+
+                    if (settings.callAfterClickedDecline !== null && {}.toString.call(settings.callAfterClickedDecline) === '[object Function]') {
+                        settings.callAfterClickedDecline();
+                    }
                 }
-
-                return false;
             });
         });
     };
@@ -238,7 +271,6 @@ Cyb.CookieBar = {
      */
     $.fn.cookieBarOptOut = function (options) {
         var settings = $.extend(Cyb.CookieBar.settings, options);
-        console.log(settings);
 
         return this.each(function () {
             var $instance = $(this);
@@ -246,13 +278,7 @@ Cyb.CookieBar = {
             $instance.click(function (event) {
                 event.preventDefault();
 
-                Cyb.CookieBar.cookie(settings.cookieName, settings.cookieValueDecline, {
-                    path: settings.cookiePath,
-                    secure: settings.cookieSecure,
-                    domain: settings.cookieDomain,
-                    expires: 0
-                });
-
+                Cyb.CookieBar.removeAllCookiesAndStorage();
                 if (settings.callAfterClickedOptOut !== null && {}.toString.call(settings.callAfterClickedOptOut) === '[object Function]') {
                     settings.callAfterClickedOptOut();
                     return;
