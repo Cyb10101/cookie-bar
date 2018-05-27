@@ -34,17 +34,21 @@ html, body {
     color: #ffffff;
     transition: background-color 400ms ease;
 }
-.cookie-bar a.cookiebar-accept {
-    border: 1px solid darkgreen;
-    background-color: green;
-}
+.cookie-bar a.cookiebar-accept,
 .cookie-bar a.cookiebar-decline {
-    border: 1px solid #de0000;
-    background-color: red;
+    border-radius: 4px;
+}
+.cookie-bar a.cookiebar-accept {
+    border: 1px solid #4caf50;
+    background-color: #8bc34a;
 }
 .cookie-bar a.cookiebar-accept:hover {
-    background-color: darkgreen;
+    background-color: #4caf50;
+}
+.cookie-bar a.cookiebar-decline {
+    border: 1px solid #DA0116;
+    background-color: #f44336;
 }
 .cookie-bar a.cookiebar-decline:hover {
-    background-color: #de0000;
+    background-color: #DA0116;
 }
