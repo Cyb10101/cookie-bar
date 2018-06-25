@@ -1,10 +1,19 @@
 {
     "name": "@cyb10101/cookie-bar",
     "description": "Cookie bar",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "keywords": ["cookie-bar", "cookiebar", "javascript"],
+    "author": {
+        "name": "Cyb10101",
+        "email": "cyb10101@gmail.com",
+        "web": "https://cyb10101.de/"
+    },
     "authors": "Cyb10101",
     "license": "Public domain",
     "main": "./jquery.cookie-bar.js",
-    "moduleType": "globals"
+    "moduleType": "globals",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Cyb10101/cookie-bar"
+    }
 }
