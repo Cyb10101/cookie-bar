@@ -2,6 +2,37 @@
 
 Licence: Public Domain - Feel free to use it, but you can also improve this.
 
+## Install via Git
+
+Simply clone git and add JavaScript and CSS file.
+
+You'll get that somehow.
+
+## Install via NPM or Yarn
+
+Execute command to add the package: 
+
+```Shell
+# Add package via NPM
+npm add @cyb10101/cookie-bar
+
+# Add package via Yarn
+yarn add @cyb10101/cookie-bar
+```
+
+Add the JavaScript include:
+
+```javascript
+// For Webpack
+require('@cyb10101/cookie-bar');
+```
+
+Add the CSS include in Sass generation:
+
+```sass
+@import '~@cyb10101/cookie-bar/jquery.cookie-bar.css';
+```
+
 ## Simplest configuration
 
 Include JavaScript after the jQuery library
