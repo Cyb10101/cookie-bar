@@ -1,6 +1,7 @@
 {
     "name": "@cyb10101/cookie-bar",
     "description": "Cookie bar",
+    "version": "1.0.0",
     "keywords": ["cookie-bar", "cookiebar", "javascript"],
     "authors": "Cyb10101",
     "license": "Public domain",
