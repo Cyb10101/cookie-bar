@@ -43,7 +43,14 @@ Cyb.CookieBar = {
      * @param {Object} options
      * @returns {*}
      */
-    cookie: function (key, value = {}, options = {}) {
+    cookie: function (key, value, options) {
+        if (typeof value === 'undefined') {
+            value = {};
+        }
+        if (typeof options === 'undefined') {
+            options = {};
+        }
+
         // Set cookie
         if (arguments.length > 1 && (!/Object/.test(Object.prototype.toString.call(value)) || value === null || value === undefined)) {
             if (value === null || value === undefined) {
@@ -117,7 +124,14 @@ Cyb.CookieBar = {
      * @param {String} characters
      * @return {String}
      */
-    generateRandomString: function (length = 12, characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-') {
+    generateRandomString: function (length = 12, characters) {
+        if (typeof length === 'undefined' || length <= 0) {
+            length = 12;
+        }
+        if (typeof characters === 'undefined' || characters === '') {
+            characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-';
+        }
+
         var string = '';
         for (var i = 0; i < length; i++) {
             string += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -130,8 +144,8 @@ Cyb.CookieBar = {
      *
      * @return {String}
      */
-    getUserLanguage: function (language = '') {
-        if (language === '') {
+    getUserLanguage: function (language) {
+        if (typeof language === 'undefined' || language === '') {
             language = navigator.language || navigator.userLanguage;
         }
         language = language.substr(0, 2);
@@ -324,7 +338,11 @@ Cyb.CookieBar = {
      * @param {Object} options
      * @return {void}
      */
-    $.cookieBar = function (options = {}) {
+    $.cookieBar = function (options) {
+        if (typeof options === 'undefined') {
+            options = {};
+        }
+
         var settings = $.extend(Cyb.CookieBar.settings, options);
         var id = 'cookie-bar-' + Cyb.CookieBar.generateRandomString();
         $(settings.attach).prepend('<div id="' + id + '" class="cookie-bar" style="display: none;"></div>');
