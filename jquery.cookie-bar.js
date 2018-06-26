@@ -124,7 +124,7 @@ Cyb.CookieBar = {
      * @param {String} characters
      * @return {String}
      */
-    generateRandomString: function (length = 12, characters) {
+    generateRandomString: function (length, characters) {
         if (typeof length === 'undefined' || length <= 0) {
             length = 12;
         }
